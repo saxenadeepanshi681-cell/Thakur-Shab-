@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thakur Shab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap">
+<style>
+:root{--plum:#2b1535;--wine:#5a1f45;--rose:#e8577a;--blush:#ffdbe4;--gold:#f2c46d;--paper:#fff6f8;--ink:#3a1f33;
+--serif:'Cormorant Garamond',Georgia,serif;--hand:'Caveat','Segoe Print',cursive;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{background:radial-gradient(120% 80% at 50% 0%,var(--wine),var(--plum) 70%);color:var(--paper);font-family:var(--serif);font-size:20px;line-height:1.6;min-height:100vh}
+section{max-width:720px;margin:0 auto;padding:64px 22px;text-align:center}
+h2{font-size:clamp(30px,7vw,44px);font-weight:700;line-height:1.15;margin-bottom:10px}
+.hand{font-family:var(--hand);font-size:26px;color:var(--gold)}
+p{max-width:34em;margin:12px auto}
+
+/* envelope */
+#intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:radial-gradient(100% 70% at 50% 30%,var(--wine),var(--plum));transition:opacity .9s,visibility .9s;cursor:pointer;padding:20px}
+#intro.gone{opacity:0;visibility:hidden}
+.env{position:relative;width:min(320px,80vw);aspect-ratio:3/2;perspective:900px}
+.env .back{position:absolute;inset:0;background:#c43d62;border-radius:8px;box-shadow:0 20px 50px #0008}
+.env .letter{position:absolute;left:8%;right:8%;top:8%;height:80%;background:var(--paper);border-radius:6px;color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--hand);font-size:28px;transition:transform 1s .5s}
+.env .front{position:absolute;inset:0;border-radius:8px;background:linear-gradient(135deg,transparent 49.5%,#e8577a 50%) left/50% 100% no-repeat,linear-gradient(225deg,transparent 49.5%,#e8577a 50%) right/50% 100% no-repeat,linear-gradient(0deg,#d8486d 55%,transparent 55%)}
+.env .flap{position:absolute;left:0;right:0;top:0;height:55%;background:#f06a8b;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s}
+.env .to{position:absolute;left:0;right:0;bottom:16%;text-align:center;font-family:var(--hand);font-size:clamp(30px,9vw,40px);font-weight:700;color:#fff;z-index:2;text-shadow:0 2px 4px #0004}
+.env .seal{position:absolute;left:50%;top:48%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--gold);color:var(--wine);display:grid;place-items:center;font-size:24px;z-index:3;transition:opacity .3s}
+#intro.open .flap{transform:rotateX(180deg)}
+#intro.open .seal{opacity:0}
+#intro.open .letter{transform:translateY(-70%)}
+#intro .tap{font-family:var(--hand);font-size:30px;color:var(--gold);animation:pulse 1.8s infinite}
+#intro.open .tap{opacity:0}
+@keyframes pulse{50%{opacity:.35}}
+
+/* photo slots */
+.slot{position:relative;background:#ffffff14 center/cover;border:2px dashed #ffffff55;border-radius:6px;display:grid;place-items:center;color:#ffffffaa;font-family:var(--hand);font-size:22px;cursor:pointer;overflow:hidden}
+.slot.has{border:0}.slot.has span{display:none}
+.polas{display:flex;flex-wrap:wrap;justify-content:center;gap:22px;margin-top:28px}
+.pola{width:min(210px,42vw);background:var(--paper);padding:10px 10px 38px;border-radius:3px;box-shadow:0 10px 26px #0006;color:var(--ink)}
+.pola:nth-child(1){transform:rotate(-4deg)}.pola:nth-child(2){transform:rotate(3deg)}.pola:nth-child(3){transform:rotate(-2deg)}
+.pola .slot{aspect-ratio:1;border-color:#3a1f3366;color:#3a1f33aa}
+.pola small{display:block;font-family:var(--hand);font-size:22px;margin-top:6px}
+.feel{background:var(--paper);color:var(--ink);border-radius:10px;padding:30px 24px;box-shadow:0 12px 34px #0006;text-align:left;font-size:22px}
+.feel p{margin:0 0 14px;max-width:none}
+.collage{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:70px;gap:8px;margin-top:26px}
+.collage .slot:nth-child(1){grid-column:span 3;grid-row:span 3}
+.collage .slot:nth-child(2){grid-column:span 3;grid-row:span 2}
+.collage .slot:nth-child(3){grid-column:span 3;grid-row:span 2}
+.collage .slot:nth-child(4){grid-column:span 2;grid-row:span 2}
+.collage .slot:nth-child(5){grid-column:span 2;grid-row:span 2}
+.collage .slot:nth-child(6){grid-column:span 2;grid-row:span 2}
+.caption{font-family:var(--hand);font-size:30px;color:var(--blush);margin-top:22px}
+
+/* countdown */
+.cd{display:flex;justify-content:center;gap:12px;margin-top:26px}
+.cd div{min-width:68px;padding:14px 6px;border:1.5px solid var(--gold);border-radius:12px}
+.cd b{display:block;font-size:clamp(30px,9vw,46px);font-variant-numeric:tabular-nums;line-height:1}
+.cd span{font-family:var(--hand);font-size:22px;color:var(--gold)}
+
+button{font:inherit;cursor:pointer;border:0;border-radius:40px;padding:12px 26px;background:var(--rose);color:#fff;font-weight:700;transition:transform .2s}
+button:hover{transform:scale(1.05)}
+button:focus-visible,.slot:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button.alt{background:transparent;border:2px solid var(--rose)}
+.opts{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:26px}
+#answer{margin-top:24px;font-family:var(--hand);font-size:32px;color:var(--gold);min-height:48px}
+.note{background:var(--paper);color:var(--ink);padding:34px 26px;border-radius:4px;transform:rotate(-1deg);box-shadow:0 14px 34px #0007;font-family:var(--hand);font-size:29px;line-height:1.45}
+.vid{aspect-ratio:16/9;margin-top:24px;border-radius:12px;width:100%}
+video{width:100%;height:100%;object-fit:cover;border-radius:12px;background:#000}
+.heart{position:fixed;bottom:-30px;z-index:60;pointer-events:none;animation:up 3s linear forwards}
+@keyframes up{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="intro" role="button" tabindex="0" aria-label="Click here, envelope kholo">
+  <div class="env"><div class="back"></div><div class="letter">Thakur Shab 💌</div><div class="front"></div><div class="to">Thakur Shab</div><div class="flap"></div><div class="seal">♥</div></div>
+  <div class="tap">Click here</div>
+</div>
+
+<main>
+<section>
+  <p class="hand">Thakur Shab, sirf tumhare liye</p>
+  <h2>Hamari yaadein</h2>
+  <p>Kuch pal jo kabhi purane nahi hote. Photo lagane ke liye kisi bhi dabbe par tap karo.</p>
+  <div class="polas">
+    <div class="pola"><div class="slot" tabindex="0"><span>+ photo</span></div><small>Wo pehli baar</small></div>
+    <div class="pola"><div class="slot" tabindex="0"><span>+ photo</span></div><small>Wo hasi</small></div>
+    <div class="pola"><div class="slot" tabindex="0"><span>+ photo</span></div><small>Humara din</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Jo dil mein hai</h2>
+  <div class="feel">
+    <p>Mujhe nahi pata kab, par tum meri aadat nahi, meri sukoon wali jagah ban gaye.</p>
+    <p>Jab tum saath hote ho, sab kuch halka lagta hai. Jab nahi hote, tab bhi tumhari baatein mere saath rehti hain.</p>
+    <p>Bahut kuch kehna chahta tha, bas itna kehna hai: tum meri life ka sabse pyara hissa ho.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Humara collage</h2>
+  <div class="collage">
+    <div class="slot" tabindex="0"><span>+ photo</span></div><div class="slot" tabindex="0"><span>+ photo</span></div><div class="slot" tabindex="0"><span>+ photo</span></div>
+    <div class="slot" tabindex="0"><span>+ photo</span></div><div class="slot" tabindex="0"><span>+ photo</span></div><div class="slot" tabindex="0"><span>+ photo</span></div>
+  </div>
+  <p class="caption">Har tasveer mein tum, har tasveer mein hum.</p>
+</section>
+
+<section>
+  <p class="hand">ek khaas din ki taraf</p>
+  <h2>9 January 2027 mein bacha hai</h2>
+  <div class="cd" id="cd" aria-live="off">
+    <div><b id="d">0</b><span>days</span></div><div><b id="h">0</b><span>hours</span></div><div><b id="m">0</b><span>minutes</span></div><div><b id="s">0</b><span>seconds</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Ek pyara sa gaana</h2>
+  <p>Ye halki si dhun sirf tumhare liye. Apna favourite gaana lagana ho to niche se chuno.</p>
+  <div class="opts">
+    <button id="play">♪ Dhun chalao</button>
+    <button class="alt" id="pick">Apna gaana chuno</button>
+  </div>
+  <input type="file" id="audioIn" accept="audio/*" hidden>
+  <audio id="aud" controls hidden style="margin-top:20px;width:100%"></audio>
+</section>
+
+<section>
+  <h2>Ek sawaal hai tumse</h2>
+  <p>Kya tum mere saath ye sapne poore karne ke liye ready ho?</p>
+  <div class="opts">
+    <button id="yes">Sure, I will</button>
+    <button class="alt" id="try">I will try</button>
+  </div>
+  <div id="answer" aria-live="polite"></div>
+</section>
+
+<section>
+  <div class="note">
+    Meri jaan,<br>
+    chahe din accha ho ya bura, tumhara saath mere liye sabse bada tohfa hai. Hamesha muskurati rehna, main hamesha tumhare saath hoon.<br>
+    <span style="color:var(--rose)">Hamesha tumhara ♥</span>
+  </div>
+</section>
+
+<section>
+  <h2>Ek chhoti si jhalak</h2>
+  <div class="vid slot" id="vslot" tabindex="0"><span>+ video chuno</span></div>
+  <input type="file" id="vidIn" accept="video/*" hidden>
+</section>
+</main>
+
+<script>
+// envelope
+var intro=document.getElementById('intro');
+function openEnv(){if(intro.classList.contains('open'))return;intro.classList.add('open');setTimeout(function(){intro.classList.add('gone');},1900);}
+intro.addEventListener('click',openEnv);
+intro.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openEnv();});
+
+// photo slots
+document.querySelectorAll('.slot:not(#vslot)').forEach(function(s){
+  var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.hidden=true;s.appendChild(inp);
+  function go(){inp.click();}
+  s.addEventListener('click',function(e){if(e.target!==inp)go();});
+  s.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+  inp.addEventListener('change',function(){var f=inp.files[0];if(!f)return;s.style.backgroundImage='url('+URL.createObjectURL(f)+')';s.classList.add('has');});
+});
+
+// video
+var vs=document.getElementById('vslot'),vi=document.getElementById('vidIn');
+function pickV(){vi.click();}
+vs.addEventListener('click',function(e){if(!vs.querySelector('video'))pickV();});
+vs.addEventListener('keydown',function(e){if(e.key==='Enter'&&!vs.querySelector('video'))pickV();});
+vi.addEventListener('change',function(){var f=vi.files[0];if(!f)return;vs.classList.add('has');vs.innerHTML='<video controls playsinline src="'+URL.createObjectURL(f)+'"></video>';});
+
+// countdown to 9 Jan 2027
+var target=new Date(2027,0,9,0,0,0).getTime();
+function tick(){
+  var t=Math.max(0,target-Date.now()),p=function(n){return String(n).padStart(2,'0');};
+  document.getElementById('d').textContent=Math.floor(t/864e5);
+  document.getElementById('h').textContent=p(Math.floor(t/36e5)%24);
+  document.getElementById('m').textContent=p(Math.floor(t/6e4)%60);
+  document.getElementById('s').textContent=p(Math.floor(t/1e3)%60);
+}
+tick();setInterval(tick,1000);
+
+// music box tune (generated, no files needed)
+var ctx,timer=null,playing=false;
+var notes=[523.25,659.25,783.99,659.25,698.46,659.25,587.33,659.25,523.25,659.25,783.99,1046.5,880,783.99,698.46,659.25,587.33,659.25,698.46,587.33,523.25,0,0,0];
+function ding(f,when){if(!f)return;var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;
+  g.gain.setValueAtTime(0,when);g.gain.linearRampToValueAtTime(.18,when+.02);g.gain.exponentialRampToValueAtTime(.001,when+1.1);
+  o.connect(g);g.connect(ctx.destination);o.start(when);o.stop(when+1.2);}
+function loop(){var t=ctx.currentTime+.05;notes.forEach(function(f,i){ding(f,t+i*.42);});}
+var playBtn=document.getElementById('play');
+playBtn.addEventListener('click',function(){
+  try{
+    if(!playing){ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();ctx.resume();loop();timer=setInterval(loop,notes.length*420);playing=true;playBtn.textContent='❚❚ Rok do';}
+    else{clearInterval(timer);playing=false;playBtn.textContent='♪ Dhun chalao';if(ctx)ctx.suspend().then(function(){ctx.resume();});ctx.close();ctx=null;}
+  }catch(e){}
+});
+var ai=document.getElementById('audioIn'),au=document.getElementById('aud');
+document.getElementById('pick').addEventListener('click',function(){ai.click();});
+ai.addEventListener('change',function(){var f=ai.files[0];if(!f)return;au.src=URL.createObjectURL(f);au.hidden=false;au.play().catch(function(){});});
+
+// question
+function hearts(){for(var i=0;i<26;i++){(function(i){setTimeout(function(){var h=document.createElement('div');h.className='heart';h.textContent=['♥','💖','💗'][i%3];h.style.left=Math.random()*95+'vw';h.style.fontSize=(18+Math.random()*26)+'px';document.body.appendChild(h);setTimeout(function(){h.remove();},3100);},i*90);})(i);}}
+document.getElementById('yes').addEventListener('click',function(){document.getElementById('answer').textContent='Yaaay! Mujhe pata tha 🥰';hearts();});
+document.getElementById('try').addEventListener('click',function(){document.getElementById('answer').textContent='Koshish hi kaafi hai, hum saath mein kar lenge 💞';hearts();});
+</script>
+</body>
+</html>
